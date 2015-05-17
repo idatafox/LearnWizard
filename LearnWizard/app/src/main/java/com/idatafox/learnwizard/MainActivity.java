@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private ActionBarDrawerToggle drawerListener;
 
 
+    private Toolbar toolbar;
+    private Toolbar secondToolbar;
+
 
 
 
@@ -33,8 +37,33 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       //add Toolbar
+        toolbar=(Toolbar)findViewById(R.id.topbar);
+        setSupportActionBar(toolbar);
+
+
+
+       //add bottom Toolbar
+
+        Toolbar toolbarBottom = (Toolbar) findViewById(R.id.aaa);
+        toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.action_settings:
+                        // TODO
+                        break;
+                    // TODO: Other cases
+                }
+                return true;
+            }
+        });
+        toolbarBottom.inflateMenu(R.menu.menu_bottom);
+
+
 
         //drawerlistener
+
         drawerLayout=(DrawerLayout)findViewById(R.id.drawerlayout);
         drawerListener=new ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_open,R.string.drawer_close){
             @Override

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_twitter"
+        android:title="视频排行"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom|withText"
+        />
+
+    <item android:id="@+id/action_facebook"
+        android:title="问题库"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom|withText"
+        />
+
+
+</menu>
