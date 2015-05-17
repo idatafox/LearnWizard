@@ -10,7 +10,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/topbar"
         android:layout_width="fill_parent"
-        android:background="#ccc"
+        android:background="@color/accentColor"
 
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         android:layout_alignParentBottom="false"
@@ -23,7 +23,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/aaa"
         android:layout_width="fill_parent"
-        android:background="#ccc"
+        android:background="#cff"
 
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         android:layout_alignParentBottom="true"

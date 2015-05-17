@@ -2,6 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:background="#bcf"
     android:layout_height="match_parent" android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
@@ -26,6 +27,8 @@
         <include android:id="@+id/app_bar"
             layout="@layout/app_bar" />
 
+
+
     <!-- if FrageLayout is lost ,does not automatically hide drawer.-->
 
 
@@ -34,18 +37,47 @@
         android:layout_height="wrap_content">
 
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/abc_action_bar_default_height_material"
+            android:background="#fff"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/abc_action_bar_default_height_material">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="208dp"
+            android:layout_gravity="top|left"
+            android:padding="0px"
+            android:src="@drawable/ic_ad_top"
+            android:id="@+id/imageView"
+            android:layout_marginTop="2dp" />
 
 
 
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/viewOne"
+            android:layout_below="@id/imageView"
+
+            android:background="#fff" />
+
+       </LinearLayout>
 
 
     </FrameLayout>
 
 
         <ListView android:id="@+id/funcList"
-            android:background="#bbc"
+            android:background="#F44336"
             android:entries="@array/funcationsNameList"
-
+            android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
+            android:layout_marginBottom="@dimen/abc_action_bar_default_height_material"
             android:layout_width="match_parent"
             android:layout_gravity="left"
             android:layout_height="match_parent">

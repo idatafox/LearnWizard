@@ -4,6 +4,33 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+
+
+    <string-array name="titles">
+
+        <item>下载Android</item>
+        <item>安装Android</item>
+        <item>生成listView</item>
+        <item>远程访问WebService</item>
+        <item>生成ActionBar</item>
+
+
+    </string-array>
+
+
+    <string-array name="descriptions">
+
+        <item>尊敬的同学们 ，欢迎参加学习. 尊敬的同学们 ，欢迎参加学习.尊敬的同学们 ，欢迎参加学习.</item>
+        <item>Des 2尊敬的同学们 ，欢迎参加学习. 尊敬的同学们 ，欢迎参加学习.尊敬的同学们 ，欢迎参加学习.</item>
+        <item>Des 3尊敬的同学们 ，欢迎参加学习. 尊敬的同学们 ，欢迎参加学习.尊敬的同学们 ，欢迎参加学习.</item>
+        <item>Des 4尊敬的同学们 ，欢迎参加学习. 尊敬的同学们 ，欢迎参加学习.尊敬的同学们 ，欢迎参加学习.</item>
+        <item>Des 5尊敬的同学们 ，欢迎参加学习. 尊敬的同学们 ，欢迎参加学习.尊敬的同学们 ，欢迎参加学习.</item>
+
+
+
+    </string-array>
+
+
     <string-array name="funcationsNameList">
 
         <item>最热技术视频排行</item>
@@ -18,6 +45,7 @@
 
     <string name="drawer_open">opened</string>
     <string name="drawer_close">closed</string>
+    <string name="title_activity_main_page">MainPageActivity</string>
 
 
 </resources>
