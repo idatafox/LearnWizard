@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".MainPageActivity"
-            android:label="@string/title_activity_main_page" >
+            android:label="数狐在线" >
         </activity>
     </application>
 
