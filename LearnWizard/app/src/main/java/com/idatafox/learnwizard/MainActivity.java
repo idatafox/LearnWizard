@@ -27,36 +27,14 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
 
-
-
-
-
-
-
-
     int[] images={R.drawable.ic_action_collapse,R.drawable.ic_action_share,R.drawable.ic_action_search,R.drawable.ic_action_search,R.drawable.ic_action_search};
     ListView list;
     String[] memeTitles;
     String[] memeDescriptions;
-
-
-
-
-
-
-
-
-
-
-
-
-
     private DrawerLayout drawerLayout;
     private ListView listView;
     private String[] funcs;
     private ActionBarDrawerToggle drawerListener;
-
-
     private Toolbar toolbar;
     private Toolbar secondToolbar;
 
@@ -70,6 +48,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
 
+      //call LoginAction
+        if(LoginActivity.landStatus.equals("-1")||LoginActivity.landStatus.equals("-2")) {
+            Intent intentLoginAction = new Intent(this, LoginActivity.class);
+            startActivity(intentLoginAction);
+        }
 
 
 
@@ -189,6 +172,17 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.exit) {
+
+                LoginActivity.landStatus="-1";
+
+                Intent intentLoginAction = new Intent(this, LoginActivity.class);
+                startActivity(intentLoginAction);
+
+
             return true;
         }
 
@@ -325,4 +319,9 @@ class VivzAdapter extends ArrayAdapter<String>{
 
         return row;
     }
+
+
+
+
+
 }
