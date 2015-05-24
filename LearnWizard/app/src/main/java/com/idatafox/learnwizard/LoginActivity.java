@@ -1,9 +1,12 @@
 package com.idatafox.learnwizard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,17 +44,43 @@ public class LoginActivity extends ActionBarActivity {
     EditText userPassword;
     Button button;
     TextView tView;
-
+    Context c;
+    TextView tStart;
+    TextView tContract;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        c=this;
         userName=(EditText)findViewById(R.id.userName);
         userPassword=(EditText)findViewById(R.id.userPassword);
         tView=(TextView)findViewById(R.id.textView3);
+        tStart=(TextView)findViewById(R.id.textView3);
+
+
+        tStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentRegAction = new Intent(getBaseContext(),RegistrationActivity.class);
+                startActivity(intentRegAction);
+
+            }
+        });
+
+        tContract=(TextView)findViewById(R.id.textView4);
+
+        tContract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(),"正在连接服务器，请稍后...",Toast.LENGTH_LONG).show();
+                Intent intentReadAction = new Intent(getBaseContext(),ReadMeActivity.class);
+                startActivity(intentReadAction);
+
+            }
+        });
+
 
         button=(Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +239,7 @@ public class LoginActivity extends ActionBarActivity {
 
             if(landStatus.equals("0"))
             {
-                 //Toast.makeText(getBaseContext(),"登录成功，正进入系统....",Toast.LENGTH_LONG).show();
+                 toast("starting loging....");
                  this.landStatus="0";
             }
             else
@@ -251,6 +280,23 @@ public class LoginActivity extends ActionBarActivity {
 
     private void _(String s){
         Log.d(LoginActivity.class.getSimpleName(), s);
+    }
+
+
+
+    public void toast(final String s)
+    {
+        Handler handler=new Handler(Looper.getMainLooper());
+        handler.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(c,s,Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+
     }
 
 

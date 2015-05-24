@@ -5,7 +5,14 @@
     <string name="action_settings">设置</string>
     <string name="action_exit">退出系统</string>
 
+     <string name="reg_usercontract"><u>用户使用协议</u></string>
+    <string name="reg_start"><u>注册新用户</u></string>
+    <string name="reg_card">
+        首先添加微信公共号elearn007,然后向微信号发送：手机号＋yz 即可得到本次注册所需要的验证码。
+        例如你注册会员的手机号为135******** 那么你需要发送135********yz到elearn007公共号
+        公共号会发送验证码给你。
 
+    </string>
 
 
     <string-array name="titles">
@@ -52,6 +59,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_read_me">用户使用协议</string>
+    <string name="title_activity_log">LogActivity</string>
 
 
 </resources>
