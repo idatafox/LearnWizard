@@ -109,7 +109,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:text="@string/reg_card"
-                            android:id="@+id/textView6"
+                            android:id="@+id/textView8"
                             android:paddingTop="10dp" />
                     </LinearLayout>
 

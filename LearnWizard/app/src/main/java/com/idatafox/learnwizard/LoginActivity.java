@@ -234,8 +234,10 @@ public class LoginActivity extends ActionBarActivity {
             JSONObject fjo=jsonpost.getJSONObject(0);
 
             String name=fjo.getString("userName");
+            String countNum=fjo.getString("countNum");
+            String countNumA=fjo.getString("countNumA");
             String landStatus=fjo.getString("landStatus");
-            _("name=="+name+"landStatus=="+landStatus);
+            _("name=="+name+"landStatus=="+landStatus+"countNum"+countNum+"countNumA="+countNumA);
 
             if(landStatus.equals("0"))
             {
