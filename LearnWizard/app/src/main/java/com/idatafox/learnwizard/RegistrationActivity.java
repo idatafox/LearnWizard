@@ -19,6 +19,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,7 @@ public class RegistrationActivity extends ActionBarActivity {
         userPassword = (EditText) findViewById(R.id.editText2);
         userPasswordC = (EditText) findViewById(R.id.editText3);
         userCity = (EditText) findViewById(R.id.editText5);
+        userCity.setText("济南");
         userQQ = (EditText) findViewById(R.id.editText4);
         userEmail = (EditText) findViewById(R.id.editText6);
         vCode = (EditText) findViewById(R.id.editText7);
@@ -157,7 +159,7 @@ public class RegistrationActivity extends ActionBarActivity {
 
 
         try {
-            UrlEncodedFormEntity entity=new UrlEncodedFormEntity(postParameters);
+            UrlEncodedFormEntity entity=new UrlEncodedFormEntity(postParameters,HTTP.UTF_8);
             post.setEntity(entity);
             HttpResponse response=httpClient.execute(post);
             bufferedReader=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));

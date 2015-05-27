@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -24,11 +25,33 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
 
     int[] images={R.drawable.ic_action_collapse,R.drawable.ic_action_share,R.drawable.ic_action_search,R.drawable.ic_action_search,R.drawable.ic_action_search};
     ListView list;
+
+    int imageOne=R.drawable.ic_action_collapse;//temp for test ,formal pattern is images object.
+
     String[] memeTitles;
     String[] memeDescriptions;
     private DrawerLayout drawerLayout;
@@ -68,6 +91,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         memeTitles=res.getStringArray(R.array.titles);
         memeDescriptions=res.getStringArray(R.array.descriptions);
 
+
+        /* Move these code into MyAsyncTask class !
+
         list=(ListView)findViewById(R.id.viewOne);
 
 
@@ -88,7 +114,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
 
             }
-        });
+        });*/
+
+         //initialize list of ListView that display articles
+
+             MyAsyncTask myAsyncTask=new MyAsyncTask();
+             myAsyncTask.execute("liferay");
+
 
 
         //add bottom Toolbar
@@ -240,6 +272,161 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         drawerListener.syncState();
     }
 
+
+    /**
+     * define MyAsyncTask extends AsyncTask class
+     * 1) retrieve data from server url using post method mode.
+     * 2) parse returned data ,get three arrays of titles,authors,shorttxt
+     * 3) call listView's instance list's setAdapter method initials it.
+     */
+
+
+    class MyAsyncTask extends AsyncTask<String,Void,Void>{
+
+
+        @Override
+        protected void onPreExecute() {
+
+            list=(ListView)findViewById(R.id.viewOne);
+            _a("initialize ListView's instance list");
+            Resources res=getResources();
+            memeTitles=res.getStringArray(R.array.titles);
+            memeDescriptions=res.getStringArray(R.array.descriptions);
+
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+
+
+            BufferedReader bufferedReader=null;
+            StringBuffer stringBuffer=new StringBuffer("");
+
+            //put data into memeTitles,images,memeDescription variables
+            HttpClient httpClient=new DefaultHttpClient();
+            String url="http://www.idatafox.com/android/common/listJSonArticle";
+            HttpPost post=new HttpPost(url);
+            List<NameValuePair> postParameters=new ArrayList<NameValuePair>();
+            postParameters.add(new BasicNameValuePair("arc_type",params[0]));
+
+            try {
+                UrlEncodedFormEntity entity=new UrlEncodedFormEntity(postParameters);
+                post.setEntity(entity);
+                HttpResponse response=httpClient.execute(post);
+                bufferedReader=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                String line="";
+                String lineSeparator=System.getProperty("line.separator");
+                while((line=bufferedReader.readLine())!=null)
+                {
+                    stringBuffer.append(line+lineSeparator);
+
+                }
+                bufferedReader.close();
+                _a("stringBuffer===" + stringBuffer.toString());
+                 parseResponse(stringBuffer.toString());
+
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            catch (ClientProtocolException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+
+            VivzAdapter adapter=new VivzAdapter(getBaseContext(),memeTitles,images,memeDescriptions);
+
+            list.setAdapter(adapter);
+
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    // Toast.makeText(getBaseContext(),memeTitles[position],Toast.LENGTH_LONG).show();
+                    Intent intentIns=new Intent(getBaseContext(),MainPageActivity.class);
+                    startActivity(intentIns);
+
+
+                }
+            });
+            _a("VivzAdapter initialized ,listView started displaying articles.");
+        }
+
+        private void _a(String s){
+            Log.d(MyAsyncTask.class.getSimpleName(), s);
+        }
+    }
+
+
+    private void _(String s){
+        Log.d(MainActivity.class.getSimpleName(), s);
+    }
+
+    //parseResponse:get article detail.
+
+    private void parseResponse(String response)
+    {
+
+        JSONObject jo= null;
+        try {
+            jo = new JSONObject(response);
+            JSONArray jsonpost= jo.getJSONArray("article");
+            _("jsonPost length:" + jsonpost.length());
+            JSONObject fjo=jsonpost.getJSONObject(0);
+
+            String arc_title="";
+            String arc_author="";
+            String arc_time="";
+            String arc_shorttxt="";
+            ArrayList<String> arc_title_array=new ArrayList<String>();
+            ArrayList<String> arc_author_array=new ArrayList<String>();
+            ArrayList<String> arc_time_array=new ArrayList<String>();
+            ArrayList<String> arc_shorttxt_array=new ArrayList<String>();
+
+            for(int i=0;i<=jsonpost.length()-1;i++)
+            {
+                fjo=jsonpost.getJSONObject(i);
+                arc_title=fjo.getString("arc_tile");
+                arc_author=fjo.getString("arc_author");
+                arc_time=fjo.getString("arc_time");
+                arc_shorttxt=fjo.getString("shorttxt");
+                arc_title_array.add(arc_title);
+                arc_author_array.add(arc_author);
+                arc_time_array.add(arc_time);
+                arc_shorttxt_array.add(arc_shorttxt);
+
+                _("arc_title=="+arc_title+"arc_author=="+arc_author+"arc_time="+arc_time+"arc_shorttxt="+arc_shorttxt.substring(0,5));
+
+
+            }
+
+
+            memeTitles=(String[])arc_title_array.toArray(new String[arc_title_array.size()]);
+            memeDescriptions=(String[])arc_shorttxt_array.toArray(new String[arc_shorttxt_array.size()]);
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+          _("parseResponse finished");
+
+    }
+
+
 }
 
 
@@ -312,7 +499,7 @@ class VivzAdapter extends ArrayAdapter<String>{
 
 
 
-        holder.myImage.setImageResource(images[position]);
+        holder.myImage.setImageResource(R.drawable.ic_action_collapse);
         holder.myTitle.setText(titleArray[position]);
         holder.myDescription.setText(desArray[position]);
 
