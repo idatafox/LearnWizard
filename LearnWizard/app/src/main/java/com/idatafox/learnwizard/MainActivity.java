@@ -2,6 +2,7 @@ package com.idatafox.learnwizard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -50,16 +51,20 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     int[] images={R.drawable.ic_action_collapse,R.drawable.ic_action_share,R.drawable.ic_action_search,R.drawable.ic_action_search,R.drawable.ic_action_search};
     ListView list;
 
-    int imageOne=R.drawable.ic_action_collapse;//temp for test ,formal pattern is images object.
+    int imageOne=R.drawable.ic_action_share;//temp for test ,formal pattern is images object.
 
     String[] memeTitles;
     String[] memeDescriptions;
+    String[] arc_authorA_array;
+    String[] arc_timeA_array;
     private DrawerLayout drawerLayout;
     private ListView listView;
     private String[] funcs;
     private ActionBarDrawerToggle drawerListener;
     private Toolbar toolbar;
     private Toolbar secondToolbar;
+
+
 
 
 
@@ -119,7 +124,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
          //initialize list of ListView that display articles
 
              MyAsyncTask myAsyncTask=new MyAsyncTask();
-             myAsyncTask.execute("liferay");
+             myAsyncTask.execute("androi-course-a");
 
 
 
@@ -346,7 +351,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         protected void onPostExecute(Void aVoid) {
 
 
-            VivzAdapter adapter=new VivzAdapter(getBaseContext(),memeTitles,images,memeDescriptions);
+            final VivzAdapter adapter=new VivzAdapter(getBaseContext(),memeTitles,images,memeDescriptions);
 
             list.setAdapter(adapter);
 
@@ -355,7 +360,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     // Toast.makeText(getBaseContext(),memeTitles[position],Toast.LENGTH_LONG).show();
-                    Intent intentIns=new Intent(getBaseContext(),MainPageActivity.class);
+                    Intent intentIns=new Intent(getBaseContext(),ArticleSmallPageActivity.class);
+                    SharedPreferences aSharedPre=getApplication().getSharedPreferences("smallPage",MODE_PRIVATE);
+                    SharedPreferences.Editor editor=aSharedPre.edit();
+                    editor.putString("arc_title",memeTitles[position]);
+                    editor.putString("arc_author",arc_authorA_array[position]);
+                    editor.putString("arc_time",arc_timeA_array[position]);
+                    editor.commit();
                     startActivity(intentIns);
 
 
@@ -415,6 +426,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
             memeTitles=(String[])arc_title_array.toArray(new String[arc_title_array.size()]);
             memeDescriptions=(String[])arc_shorttxt_array.toArray(new String[arc_shorttxt_array.size()]);
+            arc_authorA_array=(String[])arc_author_array.toArray(new String[arc_author_array.size()]);
+            arc_timeA_array=(String[])arc_time_array.toArray(new String[arc_time_array.size()]);
 
 
 
@@ -499,7 +512,7 @@ class VivzAdapter extends ArrayAdapter<String>{
 
 
 
-        holder.myImage.setImageResource(R.drawable.ic_action_collapse);
+        holder.myImage.setImageResource(R.drawable.ic_action_share);
         holder.myTitle.setText(titleArray[position]);
         holder.myDescription.setText(desArray[position]);
 

@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:background="#fff"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.idatafox.learnwizard.ArticleSmallPageActivity">
+
+  <!-- import toolbar from toolbar file-->
+    <android.support.v7.widget.Toolbar  xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/topbar"
+        android:layout_width="fill_parent"
+        android:background="@color/accentColor"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        android:layout_alignParentBottom="false"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/topbar"
+        >
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="什么是Liferay"
+                android:id="@+id/textView6"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="#000000" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="作者:数狐在线"
+                    android:id="@+id/textView7"
+                    android:singleLine="false"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="时间:2015.5.26"
+                    android:id="@+id/textView9"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_below="@+id/textView9"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="20dp">
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="就是这样的特质，希望大家都知道就可以了。"
+                    android:id="@+id/textView10"
+                    android:textColor="#000000" />
+             </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

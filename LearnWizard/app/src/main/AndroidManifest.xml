@@ -33,9 +33,7 @@
         <activity
             android:name=".ReadMeActivity"
             android:label="@string/title_activity_read_me"
-
-            android:parentActivityName=".LoginActivity"
-            >
+            android:parentActivityName=".LoginActivity" >
         </activity>
         <activity
             android:name=".LogActivity"
@@ -44,6 +42,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.idatafox.learnwizard.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".ArticleSmallPageActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_article_small_page" >
         </activity>
     </application>
 

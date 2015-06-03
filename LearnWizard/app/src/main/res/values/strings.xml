@@ -62,6 +62,7 @@
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="title_activity_read_me">用户使用协议</string>
     <string name="title_activity_log">LogActivity</string>
+    <string name="title_activity_article_small_page">数狐在线</string>
 
 
 </resources>
